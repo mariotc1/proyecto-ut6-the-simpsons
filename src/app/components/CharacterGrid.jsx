@@ -7,21 +7,21 @@ const CharacterGrid = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
+  
 
   useEffect(() => {
     fetchCharacters();
-  }, [currentPage]);
+  }, []);
 
   const fetchCharacters = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`https://thesimpsonsapi.com/api/characters?page=${currentPage}`);
+      const response = await fetch(`https://thesimpsonsapi.com/api/characters`);
       if (!response.ok) {
         throw new Error('Error al cargar los personajes');
       }
       const data = await response.json();
-      setCharacters(prev => currentPage === 1 ? data.results : [...prev, ...data.results]);
+      setCharacters(data.results);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -81,19 +81,7 @@ const CharacterGrid = () => {
             </div>
           )}
 
-          <div className="flex justify-center mt-8">
-            <button 
-              className="btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
-              onClick={() => setCurrentPage(prev => prev + 1)}
-              disabled={loading}
-            >
-              {loading ? (
-                <span className="loading loading-spinner"></span>
-              ) : (
-                'Cargar más personajes'
-              )}
-            </button>
-          </div>
+          
         </>
       )}
     </div>
