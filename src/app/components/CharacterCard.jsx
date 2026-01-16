@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import CharacterModal from './CharacterModal.jsx';
 
 const CharacterCard = ({ character }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { name, age, occupation, portrait_path, phrases, status } = character;
   
   return (
-    <div className="card bg-yellow-50 shadow-xl hover:shadow-2xl transition-all duration-300 border-4 border-yellow-400">
+    <div className="card bg-yellow-50 shadow-xl hover:shadow-2xl transition-all duration-300 border-4 border-yellow-400 simpsons-card">
       <figure className="px-4 pt-4">
         <img 
           src={`https://cdn.thesimpsonsapi.com/500${portrait_path}`}
@@ -53,11 +55,20 @@ const CharacterCard = ({ character }) => {
         )}
 
         <div className="card-actions justify-end mt-4">
-          <button className="btn btn-sm bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600">
+          <button 
+            className="btn btn-sm bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600 simpsons-glow"
+            onClick={() => setIsModalOpen(true)}
+          >
             Ver detalles
           </button>
         </div>
       </div>
+      
+      <CharacterModal 
+        character={character}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 };
