@@ -121,43 +121,100 @@ const CharacterGrid = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold text-center mb-6 simpsons-text">
-          El Universo de Los Simpsons
-        </h1>
+    <div className="min-h-screen relative">
+      {/* Background con la imagen de los Simpsons */}
+      <div className="fixed inset-0 z-0">
+        <img 
+          src="/img/image.png" 
+          alt="The Simpsons Background"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-yellow-200/30 via-orange-200/20 to-yellow-300/40"></div>
+      </div>
+
+      {/* Contenido principal sobre el fondo */}
+      <div className="relative z-10 min-h-screen flex flex-col">
+        <div className="container mx-auto px-4 py-8 flex-1">
+          <div className="mb-8">
+            <div className="text-center mb-8">
+              <h1 className="text-5xl font-bold mb-4 simpsons-text">
+                El Universo de Los Simpsons
+              </h1>
+              <p className="text-xl text-yellow-900 bg-white/80 backdrop-blur-sm rounded-xl p-4 mx-auto max-w-2xl">
+                Explora el increíble mundo de Springfield y sus personajes icónicos
+              </p>
+            </div>
         
-        {/* Navegación principal */}
-        <div className="tabs tabs-boxed bg-yellow-100 border-2 border-yellow-400 mb-6 max-w-xl mx-auto">
-          <button 
-            className={`tab ${activeTab === 'characters' ? 'tab-active bg-yellow-400 text-yellow-900' : 'bg-yellow-200 text-yellow-800 hover:bg-yellow-300'}`}
-            onClick={() => setActiveTab('characters')}
-          >
-            👥 Personajes
-          </button>
-          <button 
-            className={`tab ${activeTab === 'episodes' ? 'tab-active bg-yellow-400 text-yellow-900' : 'bg-yellow-200 text-yellow-800 hover:bg-yellow-300'}`}
-            onClick={() => setActiveTab('episodes')}
-          >
-            📺 Episodios
-          </button>
-          <button 
-            className={`tab ${activeTab === 'locations' ? 'tab-active bg-yellow-400 text-yellow-900' : 'bg-yellow-200 text-yellow-800 hover:bg-yellow-300'}`}
-            onClick={() => setActiveTab('locations')}
-          >
-            🗺️ Ubicaciones
-          </button>
-          <button 
-            className={`tab ${activeTab === 'quiz' ? 'tab-active bg-yellow-400 text-yellow-900' : 'bg-yellow-200 text-yellow-800 hover:bg-yellow-300'}`}
-            onClick={() => setActiveTab('quiz')}
-          >
-            🎮 Quiz
-          </button>
+        {/* Navegación principal profesional */}
+        <div className="flex justify-center mb-10">
+          <div className="inline-flex rounded-xl bg-white/90 backdrop-blur-sm p-2 shadow-xl border-2 border-yellow-400">
+            <button 
+              className={`px-8 py-4 rounded-lg font-semibold transition-all duration-300 ${
+                activeTab === 'characters' 
+                  ? 'bg-gradient-to-r from-yellow-400 to-yellow-500 text-yellow-900 shadow-lg transform scale-105' 
+                  : 'text-yellow-700 hover:bg-yellow-100'
+              }`}
+              onClick={() => setActiveTab('characters')}
+            >
+              <span className="flex items-center gap-3">
+                <span className="text-2xl">👥</span>
+                <span>Personajes</span>
+              </span>
+            </button>
+            
+            <div className="w-px bg-yellow-200 mx-2"></div>
+            
+            <button 
+              className={`px-8 py-4 rounded-lg font-semibold transition-all duration-300 ${
+                activeTab === 'episodes' 
+                  ? 'bg-gradient-to-r from-yellow-400 to-yellow-500 text-yellow-900 shadow-lg transform scale-105' 
+                  : 'text-yellow-700 hover:bg-yellow-100'
+              }`}
+              onClick={() => setActiveTab('episodes')}
+            >
+              <span className="flex items-center gap-3">
+                <span className="text-2xl">📺</span>
+                <span>Episodios</span>
+              </span>
+            </button>
+            
+            <div className="w-px bg-yellow-200 mx-2"></div>
+            
+            <button 
+              className={`px-8 py-4 rounded-lg font-semibold transition-all duration-300 ${
+                activeTab === 'locations' 
+                  ? 'bg-gradient-to-r from-yellow-400 to-yellow-500 text-yellow-900 shadow-lg transform scale-105' 
+                  : 'text-yellow-700 hover:bg-yellow-100'
+              }`}
+              onClick={() => setActiveTab('locations')}
+            >
+              <span className="flex items-center gap-3">
+                <span className="text-2xl">🗺️</span>
+                <span>Ubicaciones</span>
+              </span>
+            </button>
+            
+            <div className="w-px bg-yellow-200 mx-2"></div>
+            
+            <button 
+              className={`px-8 py-4 rounded-lg font-semibold transition-all duration-300 ${
+                activeTab === 'quiz' 
+                  ? 'bg-gradient-to-r from-yellow-400 to-yellow-500 text-yellow-900 shadow-lg transform scale-105' 
+                  : 'text-yellow-700 hover:bg-yellow-100'
+              }`}
+              onClick={() => setActiveTab('quiz')}
+            >
+              <span className="flex items-center gap-3">
+                <span className="text-2xl">🎮</span>
+                <span>Quiz</span>
+              </span>
+            </button>
+          </div>
         </div>
       </div>
 
       {activeTab === 'characters' && (
-        <div>
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6">
           <StatsSection characters={characters} />
           
           <FilterSection 
@@ -245,16 +302,24 @@ const CharacterGrid = () => {
       )}
 
       {activeTab === 'episodes' && (
-        <EpisodesSection />
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6">
+          <EpisodesSection />
+        </div>
       )}
 
       {activeTab === 'locations' && (
-        <LocationsSection />
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6">
+          <LocationsSection />
+        </div>
       )}
 
       {activeTab === 'quiz' && (
-        <QuizSection characters={characters} />
-      )}
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6">
+            <QuizSection characters={characters} />
+          </div>
+        )}
+        </div>
+      </div>
     </div>
   );
 };
