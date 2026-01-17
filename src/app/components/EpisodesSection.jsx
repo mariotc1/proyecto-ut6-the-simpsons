@@ -1,11 +1,14 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import EpisodeCard from './EpisodeCard.jsx';
 
 const EpisodesSection = () => {
   const [episodes, setEpisodes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedSeason, setSelectedSeason] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
   useEffect(() => {
     fetchEpisodes();
@@ -33,6 +36,14 @@ const EpisodesSection = () => {
     ? episodes 
     : episodes.filter(ep => ep.season === parseInt(selectedSeason));
 
+  const totalPages = Math.ceil(filteredEpisodes.length / itemsPerPage);
+  const paginatedEpisodes = filteredEpisodes.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  const handleSeasonChange = (e) => {
+    setSelectedSeason(e.target.value);
+    setCurrentPage(1);
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
@@ -50,7 +61,7 @@ const EpisodesSection = () => {
   }
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border-4 border-blue-400 shadow-lg">
+    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6">
       <h2 className="text-3xl font-bold text-center mb-6 text-blue-600">
         Episodios de Los Simpsons
       </h2>
@@ -64,7 +75,7 @@ const EpisodesSection = () => {
           <select
             className="select select-bordered bg-blue-50 border-blue-400 text-blue-900 focus:border-blue-500"
             value={selectedSeason}
-            onChange={(e) => setSelectedSeason(e.target.value)}
+            onChange={handleSeasonChange}
           >
             <option value="all">Todas las temporadas</option>
             {seasons.map(season => (
@@ -74,59 +85,54 @@ const EpisodesSection = () => {
         </div>
       </div>
 
-      {/* Timeline de episodios */}
-      <div className="space-y-4 max-h-96 overflow-y-auto">
-        {filteredEpisodes.map((episode, index) => (
-          <div key={episode.id || index} className="timeline-item">
-            <div className="card bg-blue-100 shadow-lg border-2 border-blue-300 hover:border-blue-400 transition-all duration-300">
-              <div className="card-body p-4">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center text-white font-bold">
-                      {episode.episode_number || index + 1}
-                    </div>
-                  </div>
-                  
-                  <div className="flex-1">
-                    <h3 className="card-title text-lg text-blue-900">
-                      {episode.title || `Episodio ${index + 1}`}
-                    </h3>
-                    
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {episode.season && (
-                        <span className="badge bg-blue-400 text-white">
-                          Temporada {episode.season}
-                        </span>
-                      )}
-                      {episode.air_date && (
-                        <span className="badge bg-indigo-400 text-white">
-                          {new Date(episode.air_date).toLocaleDateString()}
-                        </span>
-                      )}
-                    </div>
-
-                    {episode.synopsis && (
-                      <p className="text-blue-800 mt-2 text-sm line-clamp-2">
-                        {episode.synopsis}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="flex-shrink-0">
-                    <button className="btn btn-sm bg-blue-400 hover:bg-blue-500 text-white border-blue-600">
-                      Ver
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {paginatedEpisodes.map((episode) => (
+          <EpisodeCard key={episode.id} episode={episode} />
         ))}
       </div>
 
       {filteredEpisodes.length === 0 && (
-        <div className="text-center py-8">
-          <p className="text-blue-600">No se encontraron episodios</p>
+        <div className="text-center py-12">
+          <p className="text-blue-600 text-lg">No se encontraron episodios para esta temporada.</p>
+        </div>
+      )}
+
+      {/* Paginación */}
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-8">
+          <div className="join">
+            <button
+              className="join-item btn bg-blue-400 hover:bg-blue-500 text-white border-blue-600"
+              onClick={() => setCurrentPage(1)}
+              disabled={currentPage === 1}
+            >
+              ««
+            </button>
+            <button
+              className="join-item btn bg-blue-400 hover:bg-blue-500 text-white border-blue-600"
+              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+            >
+              «
+            </button>
+            <button className="join-item btn bg-blue-400 hover:bg-blue-500 text-white border-blue-600">
+              Página {currentPage} de {totalPages}
+            </button>
+            <button
+              className="join-item btn bg-blue-400 hover:bg-blue-500 text-white border-blue-600"
+              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+            >
+              »
+            </button>
+            <button
+              className="join-item btn bg-blue-400 hover:bg-blue-500 text-white border-blue-600"
+              onClick={() => setCurrentPage(totalPages)}
+              disabled={currentPage === totalPages}
+            >
+              »»
+            </button>
+          </div>
         </div>
       )}
     </div>
