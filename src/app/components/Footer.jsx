@@ -1,56 +1,29 @@
-import React from "react";
+import React from 'react';
 
-class Footer extends React.Component {
-    render() {
-        return (
-            <footer className="footer bg-primary text-primary-content p-8 border-t-4 border-primary-focus">
-                <div className="container mx-auto">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div>
-                            <h3 className="footer-title text-lg font-bold mb-4 flex items-center gap-2">
-                                <span className="text-2xl">🏡</span>
-                                Los Simpsons API
-                            </h3>
-                            <p className="text-sm">
-                                Explora el universo de Springfield con datos de todos tus personajes favoritos.
-                            </p>
-                        </div>
-                        
-                        <div>
-                            <h3 className="footer-title text-lg font-bold mb-4">Enlaces</h3>
-                            <ul className="space-y-2 text-sm">
-                                <li><a href="/" className="link link-hover text-primary-content">Inicio</a></li>
-                                <li><a href="#characters" className="link link-hover text-primary-content">Personajes</a></li>
-                                <li><a href="https://thesimpsonsapi.com" target="_blank" rel="noopener noreferrer" className="link link-hover text-primary-content">API Docs</a></li>
-                            </ul>
-                        </div>
-                        
-                        <div>
-                            <h3 className="footer-title text-lg font-bold mb-4">Proyecto</h3>
-                            <p className="text-sm mb-2">
-                                Desarrollo Web Entorno Cliente
-                            </p>
-                            <p className="text-sm">
-                                Hecho con ❤️ y React + DaisyUI
-                            </p>
-                            <div className="flex gap-2 mt-4">
-                                <span className="text-2xl">🍩</span>
-                                <span className="text-2xl">🍺</span>
-                                <span className="text-2xl">🎯</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div className="divider divider-primary-focus my-8"></div>
-                    
-                    <div className="text-center text-sm">
-                        <p>© 2024 Proyecto UT6 - Los Simpsons. Todos los derechos reservados.</p>
-                        <p className="mt-2">Datos proporcionados por <a href="https://thesimpsonsapi.com" target="_blank" rel="noopener noreferrer" className="link link-hover">TheSimpsonsAPI.com</a></p>
-                    </div>
-                </div>
-            </footer>
-        )
-    }
-}
+const Footer = () => {
+  return (
+    <footer className="bg-yellow-400/90 backdrop-blur-sm text-yellow-900 p-8">
+      <div className="container mx-auto text-center">
+        <div className="mb-4">
+          <h3 className="text-lg font-bold simpsons-text">Proyecto - El Universo de Los Simpsons</h3>
+        </div>
+        <div className="text-sm mb-4">
+          <p>Trabajo del módulo de Desarrollo Web Entorno Cliente, del CFGS de DAW</p>
+          <p>Hecho por <span className="font-semibold">Raúl Ortega Frutos</span> y <span className="font-semibold">Mario Tomé Core</span>.</p>
+        </div>
+        <div className="text-xs">
+          <p>
+            Datos proporcionados por <a href="https://thesimpsonsapi.com" target="_blank" rel="noopener noreferrer" className="link link-hover">TheSimpsonsAPI.com</a>
+          </p>
+          <p>© {new Date().getFullYear()} - Todos los derechos reservados.</p>
+        </div>
+        <div className="flex justify-center gap-4 mt-4">
+          <span className="text-2xl">🍩</span>
+          <span className="text-2xl">🍺</span>
+        </div>
+      </div>
+    </footer>
+  );
+};
 
 export default Footer;
