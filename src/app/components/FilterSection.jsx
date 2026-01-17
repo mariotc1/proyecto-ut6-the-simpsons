@@ -10,7 +10,7 @@ const FilterSection = ({ filters, onFilterChange, characters }) => {
     <div className="bg-yellow-50 rounded-2xl p-6 mb-8 border-2 border-yellow-400 shadow-lg">
       <h3 className="text-xl font-bold text-yellow-800 mb-4">Filtros Avanzados</h3>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         {/* Búsqueda por nombre */}
         <div className="form-control">
           <label className="label">
@@ -74,35 +74,6 @@ const FilterSection = ({ filters, onFilterChange, characters }) => {
               <option key={occupation} value={occupation}>{occupation}</option>
             ))}
           </select>
-        </div>
-      </div>
-
-      {/* Filtro de edad */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text text-yellow-700 font-semibold">Edad mínima</span>
-          </label>
-          <input
-            type="number"
-            placeholder="0"
-            className="input input-bordered bg-yellow-50 border-yellow-400 text-yellow-900 placeholder-yellow-600 focus:border-yellow-500"
-            value={filters.minAge}
-            onChange={(e) => onFilterChange('minAge', e.target.value)}
-          />
-        </div>
-
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text text-yellow-700 font-semibold">Edad máxima</span>
-          </label>
-          <input
-            type="number"
-            placeholder="100"
-            className="input input-bordered bg-yellow-50 border-yellow-400 text-yellow-900 placeholder-yellow-600 focus:border-yellow-500"
-            value={filters.maxAge}
-            onChange={(e) => onFilterChange('maxAge', e.target.value)}
-          />
         </div>
 
         <div className="form-control">

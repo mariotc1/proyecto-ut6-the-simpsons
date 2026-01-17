@@ -167,7 +167,7 @@ const CharacterGrid = () => {
 
           {/* Paginación */}
           {filteredCharacters.length > 0 && (
-            <div className="flex justify-center mt-8">
+            <div className="flex flex-col sm:flex-row justify-center items-center mt-8 gap-4">
               <div className="join">
                 <button 
                   className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
@@ -208,7 +208,7 @@ const CharacterGrid = () => {
           {pagination.currentPage < pagination.totalPages && (
             <div className="flex justify-center mt-4">
               <button 
-                className="btn btn-wide bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
+                className="btn btn-wide bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600 w-full sm:w-auto"
                 onClick={loadMoreCharacters}
                 disabled={loading}
               >

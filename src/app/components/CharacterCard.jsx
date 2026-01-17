@@ -7,12 +7,14 @@ const CharacterCard = ({ character }) => {
   
   return (
     <div className="card bg-yellow-50 shadow-xl hover:shadow-2xl transition-all duration-300 border-4 border-yellow-400 simpsons-card">
-      <figure className="px-4 pt-4">
-        <img 
-          src={`https://cdn.thesimpsonsapi.com/500${portrait_path}`}
-          alt={name}
-          className="rounded-xl w-full h-64 object-cover"
-        />
+      <figure className="px-4 pt-4 h-64">
+        <div className="relative w-full h-full">
+          <img 
+            src={`https://cdn.thesimpsonsapi.com/500${portrait_path}`}
+            alt={name}
+            className="absolute top-0 left-0 w-full h-full object-contain rounded-xl"
+          />
+        </div>
       </figure>
       <div className="card-body p-4">
         <h2 className="card-title text-xl font-bold text-yellow-900">
