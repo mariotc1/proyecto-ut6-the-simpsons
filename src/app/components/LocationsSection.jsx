@@ -12,8 +12,8 @@ const LocationsSection = () => {
   });
 
   useEffect(() => {
-    fetchLocations(pagination.currentPage);
-  }, [pagination.currentPage]);
+    fetchLocations(1);
+  }, []);
 
   const fetchLocations = async (page = 1) => {
     try {
@@ -23,7 +23,11 @@ const LocationsSection = () => {
         throw new Error('Error al cargar las ubicaciones');
       }
       const data = await response.json();
-      setLocations(data.results || []);
+      if (page === 1) {
+        setLocations(data.results || []);
+      } else {
+        setLocations(prev => [...prev, ...(data.results || [])]);
+      }
       setPagination({
         currentPage: page,
         totalPages: data.pages || 1,
@@ -35,9 +39,16 @@ const LocationsSection = () => {
     }
   };
 
+  const loadMoreLocations = () => {
+    if (pagination.currentPage < pagination.totalPages) {
+      fetchLocations(pagination.currentPage + 1);
+    }
+  };
+
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= pagination.totalPages) {
-      setPagination(prev => ({ ...prev, currentPage: newPage }));
+      setLocations([]); // Clear existing locations before fetching new page
+      fetchLocations(newPage);
     }
   };
 
@@ -55,7 +66,7 @@ const LocationsSection = () => {
         Ubicaciones de Springfield
       </h2>
 
-      {loading ? (
+      {loading && locations.length === 0 ? (
         <div className="flex justify-center items-center h-64">
           <span className="loading loading-spinner loading-lg text-yellow-500"></span>
         </div>
@@ -80,7 +91,7 @@ const LocationsSection = () => {
                 <button
                   className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
                   onClick={() => handlePageChange(1)}
-                  disabled={pagination.currentPage === 1}
+                  disabled={pagination.currentPage === 1 && locations.length > 20}
                 >
                   ««
                 </button>
@@ -109,6 +120,23 @@ const LocationsSection = () => {
                   »»
                 </button>
               </div>
+            </div>
+          )}
+
+          {/* Botón cargar más */}
+          {pagination.currentPage < pagination.totalPages && (
+            <div className="flex justify-center mt-4">
+              <button 
+                className="btn btn-wide bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600 w-full sm:w-auto"
+                onClick={loadMoreLocations}
+                disabled={loading}
+              >
+                {loading && locations.length > 0 ? (
+                  <span className="loading loading-spinner"></span>
+                ) : (
+                  'Cargar más ubicaciones'
+                )}
+              </button>
             </div>
           )}
         </>
