@@ -34,7 +34,7 @@ const Header = ({ activeTab, setActiveTab }) => {
           </div>
           <a className="btn btn-ghost normal-case text-xl simpsons-text text-yellow-900">El Universo de Los Simpsons</a>
         </div>
-        <div className="navbar-center hidden lg:flex">
+        <div className="navbar-end hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             {navLinks.map((link) => (
               <li key={link.id}>
@@ -54,9 +54,6 @@ const Header = ({ activeTab, setActiveTab }) => {
               </li>
             ))}
           </ul>
-        </div>
-        <div className="navbar-end">
-          {/* Add any other elements to the end of the navbar here */}
         </div>
       </div>
     </header>
