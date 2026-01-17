@@ -62,7 +62,7 @@ const EpisodesSection = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-3xl font-bold text-center mb-6 text-blue-600">
+      <h2 className="text-3xl font-bold text-center mb-6 text-yellow-600">
         Episodios de Los Simpsons
       </h2>
 
@@ -70,10 +70,10 @@ const EpisodesSection = () => {
       <div className="flex justify-center mb-6">
         <div className="form-control">
           <label className="label">
-            <span className="label-text text-blue-700 font-semibold">Filtrar por temporada</span>
+            <span className="label-text text-yellow-700 font-semibold">Filtrar por temporada</span>
           </label>
           <select
-            className="select select-bordered bg-blue-50 border-blue-400 text-blue-900 focus:border-blue-500"
+            className="select select-bordered bg-yellow-50 border-yellow-400 text-yellow-900 focus:border-yellow-500"
             value={selectedSeason}
             onChange={handleSeasonChange}
           >
@@ -93,7 +93,7 @@ const EpisodesSection = () => {
 
       {filteredEpisodes.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-blue-600 text-lg">No se encontraron episodios para esta temporada.</p>
+          <p className="text-yellow-600 text-lg">No se encontraron episodios para esta temporada.</p>
         </div>
       )}
 
@@ -102,31 +102,31 @@ const EpisodesSection = () => {
         <div className="flex justify-center mt-8">
           <div className="join">
             <button
-              className="join-item btn bg-blue-400 hover:bg-blue-500 text-white border-blue-600"
+              className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
               onClick={() => setCurrentPage(1)}
               disabled={currentPage === 1}
             >
               ««
             </button>
             <button
-              className="join-item btn bg-blue-400 hover:bg-blue-500 text-white border-blue-600"
+              className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
               onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
             >
               «
             </button>
-            <button className="join-item btn bg-blue-400 hover:bg-blue-500 text-white border-blue-600">
+            <button className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600">
               Página {currentPage} de {totalPages}
             </button>
             <button
-              className="join-item btn bg-blue-400 hover:bg-blue-500 text-white border-blue-600"
+              className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
               onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
               disabled={currentPage === totalPages}
             >
               »
             </button>
             <button
-              className="join-item btn bg-blue-400 hover:bg-blue-500 text-white border-blue-600"
+              className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
               onClick={() => setCurrentPage(totalPages)}
               disabled={currentPage === totalPages}
             >
