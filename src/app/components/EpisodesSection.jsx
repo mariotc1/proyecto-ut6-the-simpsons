@@ -6,51 +6,51 @@ const EpisodesSection = () => {
   const [episodes, setEpisodes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedSeason, setSelectedSeason] = useState('all');
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    totalPages: 1,
+  });
 
   useEffect(() => {
-    fetchEpisodes();
+    fetchEpisodes(1);
   }, []);
 
-  const fetchEpisodes = async () => {
+  const fetchEpisodes = async (page = 1) => {
     try {
       setLoading(true);
-      const response = await fetch('https://thesimpsonsapi.com/api/episodes');
+      const response = await fetch(`https://thesimpsonsapi.com/api/episodes?page=${page}`);
       if (!response.ok) {
         throw new Error('Error al cargar los episodios');
       }
       const data = await response.json();
-      setEpisodes(data.results || []);
+      if (page === 1) {
+        setEpisodes(data.results || []);
+      } else {
+        setEpisodes(prev => [...prev, ...(data.results || [])]);
+      }
+      setPagination({
+        currentPage: page,
+        totalPages: data.pages || 1,
+      });
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
   };
-
-  const seasons = [...new Set(episodes.map(ep => ep.season).filter(Boolean))].sort((a, b) => a - b);
   
-  const filteredEpisodes = selectedSeason === 'all' 
-    ? episodes 
-    : episodes.filter(ep => ep.season === parseInt(selectedSeason));
-
-  const totalPages = Math.ceil(filteredEpisodes.length / itemsPerPage);
-  const paginatedEpisodes = filteredEpisodes.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-
-  const handleSeasonChange = (e) => {
-    setSelectedSeason(e.target.value);
-    setCurrentPage(1);
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= pagination.totalPages) {
+      setEpisodes([]); // Clear existing episodes before fetching new page
+      fetchEpisodes(newPage);
+    }
   };
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <span className="loading loading-spinner loading-lg text-yellow-500"></span>
-      </div>
-    );
-  }
+  const loadMoreEpisodes = () => {
+    if (pagination.currentPage < pagination.totalPages) {
+      fetchEpisodes(pagination.currentPage + 1);
+    }
+  };
 
   if (error) {
     return (
@@ -62,78 +62,84 @@ const EpisodesSection = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-3xl font-bold text-center mb-6 text-yellow-600">
+      <h2 className="text-3xl font-bold text-center mb-8 text-yellow-600">
         Episodios de Los Simpsons
       </h2>
 
-      {/* Filtro de temporadas */}
-      <div className="flex justify-center mb-6">
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text text-yellow-700 font-semibold">Filtrar por temporada</span>
-          </label>
-          <select
-            className="select select-bordered bg-yellow-50 border-yellow-400 text-yellow-900 focus:border-yellow-500"
-            value={selectedSeason}
-            onChange={handleSeasonChange}
-          >
-            <option value="all">Todas las temporadas</option>
-            {seasons.map(season => (
-              <option key={season} value={season}>Temporada {season}</option>
+      {loading && episodes.length === 0 ? (
+        <div className="flex justify-center items-center h-64">
+          <span className="loading loading-spinner loading-lg text-yellow-500"></span>
+        </div>
+      ) : (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {episodes.map((episode) => (
+              <EpisodeCard key={episode.id} episode={episode} />
             ))}
-          </select>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {paginatedEpisodes.map((episode) => (
-          <EpisodeCard key={episode.id} episode={episode} />
-        ))}
-      </div>
-
-      {filteredEpisodes.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-yellow-600 text-lg">No se encontraron episodios para esta temporada.</p>
-        </div>
-      )}
-
-      {/* Paginación */}
-      {totalPages > 1 && (
-        <div className="flex justify-center mt-8">
-          <div className="join">
-            <button
-              className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
-              onClick={() => setCurrentPage(1)}
-              disabled={currentPage === 1}
-            >
-              ««
-            </button>
-            <button
-              className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
-              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-              disabled={currentPage === 1}
-            >
-              «
-            </button>
-            <button className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600">
-              Página {currentPage} de {totalPages}
-            </button>
-            <button
-              className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
-              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-              disabled={currentPage === totalPages}
-            >
-              »
-            </button>
-            <button
-              className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
-              onClick={() => setCurrentPage(totalPages)}
-              disabled={currentPage === totalPages}
-            >
-              »»
-            </button>
           </div>
-        </div>
+
+          {episodes.length === 0 && !loading && (
+            <div className="text-center py-12">
+              <p className="text-yellow-600 text-lg">No se encontraron episodios.</p>
+            </div>
+          )}
+
+          {/* Paginación */}
+          {pagination.totalPages > 1 && (
+            <div className="flex justify-center mt-8">
+              <div className="join">
+                <button
+                  className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
+                  onClick={() => handlePageChange(1)}
+                  disabled={pagination.currentPage === 1 && episodes.length > 20}
+                >
+                  ««
+                </button>
+                <button
+                  className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
+                  onClick={() => handlePageChange(pagination.currentPage - 1)}
+                  disabled={pagination.currentPage === 1}
+                >
+                  «
+                </button>
+                <button className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600">
+                  Página {pagination.currentPage} de {pagination.totalPages}
+                </button>
+                <button
+                  className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
+                  onClick={() => handlePageChange(pagination.currentPage + 1)}
+                  disabled={pagination.currentPage === pagination.totalPages}
+                >
+                  »
+                </button>
+                <button
+                  className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
+                  onClick={() => handlePageChange(pagination.totalPages)}
+                  disabled={pagination.currentPage === pagination.totalPages}
+                >
+                  »»
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Botón cargar más */}
+          {pagination.currentPage < pagination.totalPages && (
+            <div className="flex justify-center mt-4">
+              <button 
+                className="btn btn-wide bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600 w-full sm:w-auto"
+                onClick={loadMoreEpisodes}
+                disabled={loading && episodes.length > 0}
+              >
+                {loading && episodes.length > 0 ? (
+                  <span className="loading loading-spinner"></span>
+                ) : (
+                  'Cargar más episodios'
+                )}
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
