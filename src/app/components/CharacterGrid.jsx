@@ -168,33 +168,33 @@ const CharacterGrid = () => {
           {/* Paginación */}
           {filteredCharacters.length > 0 && (
             <div className="flex flex-col sm:flex-row justify-center items-center mt-8 gap-4">
-              <div className="join">
+              <div className="join flex-wrap sm:flex-nowrap">
                 <button 
-                  className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
+                  className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600 sm:w-auto"
                   onClick={() => fetchCharacters(1)}
                   disabled={pagination.currentPage === 1}
                 >
                   Primera
                 </button>
                 <button 
-                  className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
+                  className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600 w-16 sm:w-auto"
                   onClick={() => fetchCharacters(Math.max(1, pagination.currentPage - 1))}
                   disabled={pagination.currentPage === 1}
                 >
-                  Anterior
+                  «
                 </button>
-                <button className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600">
+                <button className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600 px-2 sm:px-4">
                   Página {pagination.currentPage} de {pagination.totalPages}
                 </button>
                 <button 
-                  className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
+                  className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600 w-16 sm:w-auto"
                   onClick={() => fetchCharacters(Math.min(pagination.totalPages, pagination.currentPage + 1))}
                   disabled={pagination.currentPage === pagination.totalPages}
                 >
-                  Siguiente
+                  »
                 </button>
                 <button 
-                  className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
+                  className="join-item btn bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600 sm:w-auto"
                   onClick={() => fetchCharacters(pagination.totalPages)}
                   disabled={pagination.currentPage === pagination.totalPages}
                 >
