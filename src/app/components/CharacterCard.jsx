@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import CharacterModal from './CharacterModal.jsx';
+import React from 'react';
 
 const CharacterCard = ({ character }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const { name, age, occupation, portrait_path, phrases, status } = character;
   
   return (
@@ -55,22 +53,7 @@ const CharacterCard = ({ character }) => {
             </div>
           </div>
         )}
-
-        <div className="card-actions justify-end mt-4">
-          <button 
-            className="btn btn-sm bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600 simpsons-glow"
-            onClick={() => setIsModalOpen(true)}
-          >
-            Ver detalles
-          </button>
-        </div>
       </div>
-      
-      <CharacterModal 
-        character={character}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
     </div>
   );
 };
