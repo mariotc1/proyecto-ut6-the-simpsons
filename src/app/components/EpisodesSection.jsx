@@ -61,7 +61,7 @@ const EpisodesSection = () => {
   }
 
   return (
-    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6">
+    <div className="p-6">
       <h2 className="text-3xl font-bold text-center mb-6 text-blue-600">
         Episodios de Los Simpsons
       </h2>
