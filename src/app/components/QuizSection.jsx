@@ -9,32 +9,31 @@ const QuizSection = ({ characters }) => {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [showResult, setShowResult] = useState(false);
 
+  // This function can be improved to get more random characters
   const generateQuestions = () => {
     const characterWithPhrases = characters.filter(c => c.phrases && c.phrases.length > 0);
-    const generatedQuestions = [];
+    const shuffled = characterWithPhrases.sort(() => 0.5 - Math.random());
+    const selectedCharacters = shuffled.slice(0, 10);
 
-    for (let i = 0; i < Math.min(10, characterWithPhrases.length); i++) {
-      const character = characterWithPhrases[i];
+    const generatedQuestions = selectedCharacters.map((character, index) => {
       const phrase = character.phrases[Math.floor(Math.random() * character.phrases.length)];
       
-      // Generar opciones incorrectas
       const wrongOptions = characters
         .filter(c => c.id !== character.id)
-        .sort(() => Math.random() - 0.5)
+        .sort(() => 0.5 - Math.random())
         .slice(0, 3)
         .map(c => c.name);
 
-      // Mezclar opciones
-      const options = [character.name, ...wrongOptions].sort(() => Math.random() - 0.5);
+      const options = [character.name, ...wrongOptions].sort(() => 0.5 - Math.random());
 
-      generatedQuestions.push({
-        id: i + 1,
+      return {
+        id: index + 1,
         phrase: phrase,
         correctAnswer: character.name,
         options: options,
         character: character
-      });
-    }
+      };
+    });
 
     return generatedQuestions;
   };
@@ -79,22 +78,25 @@ const QuizSection = ({ characters }) => {
 
   if (quizState === 'idle') {
     return (
-      <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border-4 border-purple-400 shadow-lg text-center">
-        <div className="text-6xl mb-4">🎯</div>
-        <h2 className="text-3xl font-bold text-purple-600 mb-4">Quiz de Frases de Los Simpsons</h2>
-        <p className="text-purple-700 mb-6">¿Quién dijo esta famosa frase?</p>
-        <p className="text-purple-600 mb-8">Pon a prueba tus conocimientos sobre los personajes icónicos de Springfield</p>
+      <div className="bg-yellow-50 rounded-2xl p-8 border-2 border-yellow-400 shadow-lg text-center">
+        <div className="flex justify-center mb-4">
+          <svg className="w-16 h-16 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
+        </div>
+        <h2 className="text-3xl font-bold text-yellow-800 mb-4">Quiz de Frases de Los Simpsons</h2>
+        <p className="text-yellow-700 mb-8">Pon a prueba tus conocimientos sobre los personajes icónicos de Springfield.</p>
         
-        {characters.filter(c => c.phrases && c.phrases.length > 0).length > 0 ? (
+        {characters.filter(c => c.phrases && c.phrases.length > 0).length > 4 ? (
           <button 
-            className="btn btn-lg bg-purple-400 hover:bg-purple-500 text-white border-purple-600"
+            className="btn btn-lg bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
             onClick={startQuiz}
           >
-            🎮 Comenzar Quiz
+            <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            Comenzar Quiz
           </button>
         ) : (
           <div className="text-yellow-600">
-            <p>Cargando personajes para el quiz...</p>
+            <span className="loading loading-spinner"></span>
+            <p className="mt-2">Cargando personajes para el quiz...</p>
           </div>
         )}
       </div>
@@ -105,49 +107,45 @@ const QuizSection = ({ characters }) => {
     const question = questions[currentQuestion];
     
     return (
-      <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 border-4 border-purple-400 shadow-lg">
-        <div className="flex justify-between items-center mb-6">
-          <div className="text-purple-700 font-semibold">
+      <div className="bg-yellow-50 rounded-2xl p-6 border-2 border-yellow-400 shadow-lg">
+        <div className="flex justify-between items-center mb-4">
+          <div className="text-yellow-700 font-semibold">
             Pregunta {currentQuestion + 1} de {questions.length}
           </div>
-          <div className="text-purple-700 font-semibold">
+          <div className="text-yellow-700 font-semibold">
             Puntuación: {score}
           </div>
         </div>
 
-        {/* Barra de progreso */}
-        <div className="w-full bg-purple-200 rounded-full h-3 mb-6">
+        <div className="w-full bg-yellow-200 rounded-full h-2.5 mb-6">
           <div 
-            className="bg-purple-500 h-3 rounded-full transition-all duration-500"
+            className="bg-yellow-500 h-2.5 rounded-full transition-all duration-500"
             style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
           ></div>
         </div>
 
-        {/* Quote bubble */}
-        <div className="bg-white rounded-2xl p-6 mb-6 border-2 border-purple-300 shadow-md">
-          <div className="flex items-start gap-4">
-            <div className="text-4xl">💬</div>
-            <p className="text-xl text-purple-900 italic font-medium">
-              "{question.phrase}"
-            </p>
-          </div>
+        <div className="relative bg-white rounded-2xl p-6 mb-6 border-2 border-yellow-300 shadow-inner">
+          <div className="absolute top-2 left-4 text-6xl text-yellow-300 opacity-50">“</div>
+          <p className="text-center text-xl text-yellow-900 italic font-medium z-10 relative">
+            {question.phrase}
+          </p>
+          <div className="absolute bottom-2 right-4 text-6xl text-yellow-300 opacity-50">”</div>
         </div>
 
-        {/* Options */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {question.options.map((option, index) => {
-            let buttonClass = "btn p-4 text-lg font-medium border-2 ";
+            let buttonClass = "btn p-4 h-full text-lg font-medium border-2 transition-all duration-300 ";
             
             if (showResult) {
               if (option === question.correctAnswer) {
-                buttonClass += "bg-green-400 text-white border-green-600";
-              } else if (option === selectedAnswer && option !== question.correctAnswer) {
-                buttonClass += "bg-red-400 text-white border-red-600";
+                buttonClass += "bg-green-500 text-white border-green-600 scale-105";
+              } else if (option === selectedAnswer) {
+                buttonClass += "bg-red-500 text-white border-red-600";
               } else {
-                buttonClass += "bg-gray-200 text-gray-500 border-gray-400";
+                buttonClass += "bg-gray-200 text-gray-500 border-gray-300 opacity-50";
               }
             } else {
-              buttonClass += "bg-white hover:bg-purple-100 text-purple-900 border-purple-300 hover:border-purple-400";
+              buttonClass += "bg-white hover:bg-yellow-100 text-yellow-900 border-yellow-300 hover:border-yellow-400";
             }
 
             return (
@@ -162,18 +160,6 @@ const QuizSection = ({ characters }) => {
             );
           })}
         </div>
-
-        {showResult && (
-          <div className="mt-6 text-center">
-            {selectedAnswer === question.correctAnswer ? (
-              <div className="text-green-600 font-bold text-xl">✅ ¡Correcto!</div>
-            ) : (
-              <div className="text-red-600 font-bold text-xl">
-                ❌ Incorrecto. La respuesta correcta es: {question.correctAnswer}
-              </div>
-            )}
-          </div>
-        )}
       </div>
     );
   }
@@ -182,39 +168,31 @@ const QuizSection = ({ characters }) => {
     const percentage = Math.round((score / questions.length) * 100);
     
     return (
-      <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border-4 border-purple-400 shadow-lg text-center">
-        <div className="text-6xl mb-4">🏆</div>
-        <h2 className="text-3xl font-bold text-purple-600 mb-4">Quiz Completado</h2>
-        
-        <div className="bg-white rounded-xl p-6 mb-6 border-2 border-purple-300">
-          <div className="text-5xl font-bold text-purple-600 mb-2">{score}/{questions.length}</div>
-          <div className="text-xl text-purple-700">{percentage}% de aciertos</div>
+      <div className="bg-yellow-50 rounded-2xl p-8 border-2 border-yellow-400 shadow-lg text-center">
+        <div className="flex justify-center mb-4 text-yellow-500">
+          <svg className="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
         </div>
-
-        <div className="mb-6">
-          {percentage >= 80 ? (
-            <div className="text-green-600 text-xl font-bold">🌟 ¡Eres un experto en Los Simpsons!</div>
-          ) : percentage >= 60 ? (
-            <div className="text-yellow-600 text-xl font-bold">👍 ¡Buen trabajo! Conoces bien Springfield</div>
-          ) : percentage >= 40 ? (
-            <div className="text-orange-600 text-xl font-bold">📚 Sigue viendo Los Simpsons</div>
-          ) : (
-            <div className="text-red-600 text-xl font-bold">😅 ¿Seguro que eres fan de Los Simpsons?</div>
-          )}
+        <h2 className="text-3xl font-bold text-yellow-800 mb-2">¡Quiz Completado!</h2>
+        <p className="text-yellow-700 mb-6">Este es tu resultado final:</p>
+        
+        <div className="bg-white rounded-xl p-6 mb-6 border-2 border-yellow-300 shadow-inner">
+          <div className="text-5xl font-bold text-yellow-900 mb-2">{score} / {questions.length}</div>
+          <div className="text-2xl text-yellow-800 font-semibold">{percentage}% de aciertos</div>
         </div>
 
         <div className="flex gap-4 justify-center">
           <button 
-            className="btn btn-lg bg-purple-400 hover:bg-purple-500 text-white border-purple-600"
+            className="btn btn-lg bg-yellow-400 hover:bg-yellow-500 text-yellow-900 border-yellow-600"
             onClick={startQuiz}
           >
-            🔄 Jugar de Nuevo
+            <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h5" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 20v-5h-5" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 20h5v-5" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 4h-5v5" /></svg>
+            Jugar de Nuevo
           </button>
           <button 
-            className="btn btn-lg bg-gray-400 hover:bg-gray-500 text-white border-gray-600"
+            className="btn btn-lg bg-gray-300 hover:bg-gray-400 text-gray-800"
             onClick={resetQuiz}
           >
-            🏠 Salir
+            Salir
           </button>
         </div>
       </div>
