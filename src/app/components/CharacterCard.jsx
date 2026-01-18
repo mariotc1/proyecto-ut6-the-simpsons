@@ -43,7 +43,7 @@ const CharacterCard = ({ character }) => {
             <h3 className="font-semibold text-yellow-800 mb-2">Frases célebres:</h3>
             <div className="bg-yellow-100 rounded-lg p-3">
               <p className="text-yellow-900 italic text-sm">
-                "{phrases[0]}"
+                &quot;{phrases[0]}&quot;
               </p>
               {phrases.length > 1 && (
                 <p className="text-xs text-yellow-600 mt-1">
