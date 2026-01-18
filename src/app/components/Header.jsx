@@ -56,7 +56,7 @@ const Header = ({ activeTab, setActiveTab }) => {
               ))}
             </ul>
           </div>
-          <a className="btn btn-ghost normal-case text-xl simpsons-text text-yellow-900" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>El Universo de Los Simpsons</a>
+          <a className="btn btn-ghost normal-case text-xl simpsons-text text-yellow-950" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>El Universo de Los Simpsons</a>
         </div>
         <div className="navbar-end hidden lg:flex">
           <ul className="menu menu-horizontal p-0">

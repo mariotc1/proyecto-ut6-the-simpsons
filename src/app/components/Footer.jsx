@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="bg-yellow-400/90 backdrop-blur-sm text-yellow-900 p-8">
+    <footer className="bg-yellow-400/90 backdrop-blur-sm text-yellow-950 p-8">
       <div className="container mx-auto text-center">
         <div className="mb-4">
           <h3 className="text-lg font-bold simpsons-text">Proyecto - El Universo de Los Simpsons</h3>
