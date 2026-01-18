@@ -7,6 +7,7 @@ import EpisodesSection from './EpisodesSection.jsx';
 import LocationsSection from './LocationsSection.jsx';
 import QuizSection from './QuizSection.jsx';
 import Header from './Header.jsx';
+import ScrollToTopButton from './ScrollToTopButton.jsx';
 
 const CharacterGrid = () => {
   const [characters, setCharacters] = useState([]);
@@ -123,6 +124,7 @@ const CharacterGrid = () => {
 
   return (
     <div className="min-h-screen relative">
+      <ScrollToTopButton />
       {/* Background con la imagen de los Simpsons */}
       <div className="fixed inset-0 z-0">
         <img 
