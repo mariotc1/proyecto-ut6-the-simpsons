@@ -1,4 +1,4 @@
-# 🎭 The Simpsons Interactive Web App
+# The Simpsons Interactive Web App
 
 **Una aplicación web interactiva sobre Los Simpsons construida con Next.js 16 y React 19**
 
@@ -111,29 +111,6 @@ npm run lint     # Análisis de código con ESLint
 - **Animaciones de Transición**: Efectos visuales al responder
 - **Game State Management**: Gestión completa del estado del juego
 
-### 4. ✨ Experiencia de Usuario
-- **Animaciones Fluidas**: Transiciones suaves con Framer Motion
-- **Loading States**: Indicadores de carga durante fetch de datos
-- **Error Handling**: Gestión elegante de errores de API
-- **Accessibility**: Soporte para navegación por teclado y lectores de pantalla
-
-## 📊 Calidad del Código y Buenas Prácticas
-
-### ✅ Fortalezas Implementadas
-- **Component Architecture**: Estructura modular y mantenible
-- **Modern React Patterns**: Uso de hooks y patrones actuales
-- **Performance Optimization**: useMemo, Intersection Observer
-- **Responsive Design**: Mobile-first con Tailwind CSS
-- **Error Boundaries**: Gestión de errores en componentes
-- **Clean Code**: Código legible y bien documentado
-
-### 🔧 Áreas de Mejora Identificadas
-- **TypeScript Migration**: Adición de tipado estático
-- **Testing Infrastructure**: Implementación de pruebas unitarias
-- **State Management**: Context API para estado global
-- **Component Decomposition**: Reducir tamaño de componentes complejos
-- **API Layer**: Centralización de llamadas a API
-
 ## 🌐 Despliegue y Producción
 
 ### Despliegue en Vercel
@@ -200,4 +177,4 @@ Este proyecto está licenciado bajo la **MIT License** - ver archivo [LICENSE](L
 **Centro:** IES Galileo  
 **Año:** 2025-2026
 
-📧 **Contacto:** [mariotomecore@gmail.com] | 🐙 **GitHub:** [mariotc1]
+📧 **Contacto:** mariotomecore@gmail.com | 🐙 **GitHub:** https://github.com/mariotc1
