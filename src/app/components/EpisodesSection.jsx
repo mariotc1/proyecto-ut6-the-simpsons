@@ -6,18 +6,13 @@ const EpisodesSection = () => {
   const [allEpisodes, setAllEpisodes] = useState([]);
   const [displayedEpisodes, setDisplayedEpisodes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [loadingAll, setLoadingAll] = useState(true); // To track background fetching
+  const [loadingAll, setLoadingAll] = useState(true);
   const [error, setError] = useState(null);
   const [selectedSeason, setSelectedSeason] = useState('all');
   const [page, setPage] = useState(1);
   const episodesPerPage = 9;
 
-  // 1. Initial fast load
-  useEffect(() => {
-    fetchInitialEpisodes();
-  }, []);
-
-  const fetchInitialEpisodes = async () => {
+  const fetchInitialEpisodes = React.useCallback(async () => {
     setLoading(true);
     try {
       const response = await fetch('https://thesimpsonsapi.com/api/episodes?page=1');
@@ -27,14 +22,18 @@ const EpisodesSection = () => {
       setDisplayedEpisodes(data.results.slice(0, episodesPerPage) || []);
       setPage(1);
       setLoading(false);
-      // 2. Asynchronous full data fetch
       fetchAllRemainingEpisodes(data.pages, data.results || []);
+
     } catch (err) {
       setError(err.message);
       setLoading(false);
       setLoadingAll(false);
     }
-  };
+  }, [episodesPerPage]);
+
+  useEffect(() => {
+    fetchInitialEpisodes();
+  }, [fetchInitialEpisodes]);
 
   const fetchAllRemainingEpisodes = async (totalPages, initialEpisodes) => {
     try {
