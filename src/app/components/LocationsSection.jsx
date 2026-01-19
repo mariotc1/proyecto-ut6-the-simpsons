@@ -13,26 +13,26 @@ const LocationsSection = () => {
   const locationsPerPage = 8;
 
   useEffect(() => {
+    const fetchInitialLocations = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch('https://thesimpsonsapi.com/api/locations?page=1');
+        if (!response.ok) throw new Error('Error al cargar las ubicaciones');
+        const data = await response.json();
+        setAllLocations(data.results || []);
+        setDisplayedLocations(data.results.slice(0, locationsPerPage) || []);
+        setPage(1);
+        setLoading(false);
+        fetchAllRemainingLocations(data.pages, data.results || []);
+        
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+        setLoadingAll(false);
+      }
+    };
     fetchInitialLocations();
   }, []);
-
-  const fetchInitialLocations = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch('https://thesimpsonsapi.com/api/locations?page=1');
-      if (!response.ok) throw new Error('Error al cargar las ubicaciones');
-      const data = await response.json();
-      setAllLocations(data.results || []);
-      setDisplayedLocations(data.results.slice(0, locationsPerPage) || []);
-      setPage(1);
-      setLoading(false);
-      fetchAllRemainingLocations(data.pages, data.results || []);
-    } catch (err) {
-      setError(err.message);
-      setLoading(false);
-      setLoadingAll(false);
-    }
-  };
 
   const fetchAllRemainingLocations = async (totalPages, initialLocations) => {
     try {
