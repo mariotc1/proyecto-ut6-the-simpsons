@@ -1,7 +1,7 @@
 # El Universo de Los Simpsons - Aplicación Web Interactiva
 
 <p align="center">
-  <img src="/public/img/portada.png alt="Vista previa de la aplicación" width="700"/>
+  <img src="/public/img/portada.png" alt="Vista previa de la aplicación" width="700"/>
 </p>
 
 <p align="center">
