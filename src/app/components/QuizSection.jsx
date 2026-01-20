@@ -178,11 +178,11 @@ const QuizSection = ({ characters }) => {
 
         {/* Caja con la frase del personaje */}
         <div className="relative bg-white rounded-2xl p-6 mb-6 border-2 border-yellow-300 shadow-inner">
-          <div className="absolute top-2 left-4 text-6xl text-yellow-300 opacity-50">"</div>
+          <div className="absolute top-2 left-4 text-6xl text-yellow-300 opacity-50">&quot;</div>
           <p className="text-center text-xl text-yellow-900 italic font-medium z-10 relative">
             {question.phrase}
           </p>
-          <div className="absolute bottom-2 right-4 text-6xl text-yellow-300 opacity-50">"</div>
+          <div className="absolute bottom-2 right-4 text-6xl text-yellow-300 opacity-50">&quot;</div>
         </div>
 
         {/* Opciones de respuesta */}

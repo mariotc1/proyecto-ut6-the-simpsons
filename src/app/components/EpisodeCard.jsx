@@ -103,4 +103,3 @@ const EpisodeCard = ({ episode }) => {
 };
 
 export default EpisodeCard;
-
