@@ -1,18 +1,43 @@
+/**
+ * Componente RootLayout
+ * 
+ * Layout principal de la aplicación Next.js.
+ * Configura las fuentes de Google, metadatos globales,
+ * estructura HTML y estilos base de la aplicación.
+ * Incluye el footer en todas las páginas.
+ * 
+ * @component
+ * @param {Object} props - Propiedades del componente
+ * @param {React.ReactNode} props.children - Contenido de la página
+ * @returns {JSX.Element} Layout completo con fuentes y footer
+ */
 'use client';
+
+// Importaciones de fuentes de Google para tipografía personalizada
 import { Geist, Geist_Mono } from "next/font/google";
+
+// Importación de estilos globales
 import "./globals.css";
+
+// Importación del componente Footer
 import Footer from '@/app/components/Footer.jsx';
 
+// Configuración de la fuente principal (sans-serif)
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
+// Configuración de la fuente monoespaciada
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
+/**
+ * Metadatos de la aplicación (comentados temporalmente)
+ * Descomentar cuando se quiera configurar SEO completo
+ */
 /*
 export const metadata = {
   title: "Create Next App",
@@ -20,13 +45,36 @@ export const metadata = {
 };
 */
 
+/**
+ * Componente RootLayout principal
+ * @param {Object} props - Propiedades del layout
+ * @param {React.ReactNode} props.children - Contenido de las páginas
+ * @returns {JSX.Element} Estructura HTML completa
+ */
 export default function RootLayout({ children }) {
   return (
+    // HTML con idioma español y tema personalizado
     <html lang="es" data-theme="simpsons">
+      
+      {/* 
+        Body con:
+        - Variables CSS de fuentes configuradas
+        - Antialiasing para mejor renderizado de fuentes
+        - Gradiente de fondo temático de Los Simpsons
+      */}
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-br from-yellow-50 to-orange-50`}
+        className={`
+          ${geistSans.variable} 
+          ${geistMono.variable} 
+          antialiased 
+          bg-gradient-to-br from-yellow-50 to-orange-50
+        `}
       >
+        
+        {/* Contenido dinámico de las páginas */}
         {children}
+        
+        {/* Footer que aparece en todas las páginas */}
         <Footer />
       </body>
     </html>
