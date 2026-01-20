@@ -1,18 +1,35 @@
+/**
+ * Componente StatsSection
+ * 
+ * Sección de estadísticas que muestra información resumida
+ * sobre los personajes de Los Simpsons en tarjetas animadas.
+ * Calcula datos como totales, géneros, estados y edad promedio.
+ * 
+ * @component
+ * @param {Object} props - Propiedades del componente
+ * @param {Array} props.characters - Array de personajes para calcular estadísticas
+ * @returns {JSX.Element} Sección completa de estadísticas
+ */
 'use client';
+
 import React from 'react';
 import StatsCard from './StatsCard.jsx';
 
 const StatsSection = ({ characters }) => {
+  // Calculamos las estadísticas básicas de los personajes
   const totalCharacters = characters.length;
   const aliveCharacters = characters.filter(c => c.status === 'Alive').length;
   const deadCharacters = characters.filter(c => c.status === 'Deceased').length;
   const maleCharacters = characters.filter(c => c.gender === 'Male').length;
   const femaleCharacters = characters.filter(c => c.gender === 'Female').length;
+  
+  // Calculamos la edad promedio solo para personajes con edad válida
   const avgAge = characters
     .filter(c => c.age && !isNaN(c.age))
     .reduce((sum, c) => sum + parseInt(c.age), 0) /
     characters.filter(c => c.age && !isNaN(c.age)).length || 0;
 
+  // Array de configuración para cada tarjeta de estadística
   const stats = [
     {
       title: "Total Personajes",
@@ -78,9 +95,13 @@ const StatsSection = ({ characters }) => {
 
   return (
     <div className="mb-8">
+      
+      {/* Título de la sección de estadísticas */}
       <h2 className="text-3xl font-bold text-center mb-6 text-yellow-600">
         Estadísticas de Springfield
       </h2>
+      
+      {/* Cuadrícula de tarjetas de estadísticas */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         {stats.map((stat, index) => (
           <StatsCard
