@@ -33,34 +33,34 @@
 
 ## 🌟 Características Principales
 
-### 🎭 **Exploración de Personajes**
+### **Exploración de Personajes**
 - **Galería Completa**: Navega por todos los personajes de Los Simpsons con imágenes de alta calidad
 - **Filtrado Avanzado**: Busca por nombre, género, estado, ocupación y rango de edad
 - **Vista Detallada**: Accede a información completa de cada personaje con un solo clic
 - **Carga Progresiva**: Paginación inteligente con botón "Cargar Más" para rendimiento óptimo
 
-### 📺 **Gestión de Episodios**
+### **Gestión de Episodios**
 - **Navegación por Temporadas**: Explora episodios organizados por temporadas
 - **Información Completa**: Accede a detalles de cada episodio incluyendo fecha de emisión
 - **Filtrado Dinámico**: Filtra episodios por temporada de forma instantánea
 
-### 🏛️ **Descubrimiento de Ubicaciones**
+### **Descubrimiento de Ubicaciones**
 - **Mapa de Springfield**: Explora los lugares icónicos de la serie
 - **Filtrado por Ciudad**: Organiza las ubicaciones por diferentes ciudades
 - **Descripciones Detalladas**: Conoce la historia detrás de cada lugar
 
-### 🎯 **Quiz Interactivo**
+### **Quiz Interactivo**
 - **Preguntas Dinámicas**: 10 preguntas aleatorias basadas en citas de personajes
 - **Sistema de Puntuación**: Seguimiento en tiempo real de tu progreso
 - **Feedback Visual**: Respuestas inmediatas con indicadores visuales
 - **Resultados Detallados**: Muestra tu puntuación final con porcentaje y opción de repetir
 
-### 🎨 **Experiencia de Usuario**
-- **📱 Diseño Responsivo**: Experiencia perfecta en móviles, tablets y desktop
-- **✨ Animaciones Fluidas**: Transiciones suaves y efectos personalizados al estilo Simpsons
-- **🎨 Tema Personalizado**: Paleta de colores inspirada en la serie (amarillo, azul, naranja, rojo)
-- **⚡ Rendimiento Optimizado**: Carga lazy loading y optimización de recursos
-- **🔄 Estados de Carga**: Indicadores visuales durante la carga de datos
+### **Experiencia de Usuario**
+- **Diseño Responsivo**: Experiencia perfecta en móviles, tablets y desktop
+- **Animaciones Fluidas**: Transiciones suaves y efectos personalizados al estilo Simpsons
+- **Tema Personalizado**: Paleta de colores inspirada en la serie (amarillo, azul, naranja, rojo)
+- **Rendimiento Optimizado**: Carga lazy loading y optimización de recursos
+- **Estados de Carga**: Indicadores visuales durante la carga de datos
 
 ---
 
@@ -89,15 +89,15 @@
 | **JSConfig** | Configuración de aliases (@/*) |
 
 ### **Data Source**
-- **🌐 API**: [The Simpsons API](https://thesimpsonsapi.com/)
-- **📊 Endpoints**: Characters, Episodes, Locations
-- **🔄 Paginación**: Soporte completo para carga eficiente
+- **API**: [The Simpsons API](https://thesimpsonsapi.com/)
+- **Endpoints**: Characters, Episodes, Locations
+- **Paginación**: Soporte completo para carga eficiente
 
 ---
 
 ## 🚀 Instalación y Configuración
 
-### 📋 Prerrequisitos
+### Prerrequisitos
 
 Asegúrate de tener instalado:
 - **Node.js** `v18.17.0` o superior
@@ -105,27 +105,27 @@ Asegúrate de tener instalado:
 
 ### 🛠️ Pasos de Instalación
 
-1. **📥 Clona el repositorio**
+1. **Clona el repositorio**
    ```bash
    git clone https://github.com/mariotc1/proyecto-ut6-the-simpsons.git
    ```
 
-2. **📁 Navega al directorio**
+2. **Navega al directorio**
    ```bash
    cd proyecto-ut6-the-simpsons
    ```
 
-3. **📦 Instala las dependencias**
+3. **Instala las dependencias**
    ```bash
    npm install
    ```
 
-4. **🚀 Inicia el servidor de desarrollo**
+4. **Inicia el servidor de desarrollo**
    ```bash
    npm run dev
    ```
 
-5. **🌐 Abre tu navegador**
+5. **Abre tu navegador**
    ```
    http://localhost:3000
    ```
@@ -138,17 +138,17 @@ Asegúrate de tener instalado:
 proyecto-ut6-the-simpsons/
 ├── 📂 src/app/
 │   ├── 📂 components/           # 17 componentes React
-│   │   ├── 🎯 CharacterGrid.jsx     # Controlador principal de la app
-│   │   ├── 🧭 Header.jsx            # Navegación y pestañas
-│   │   ├── 👥 CharactersContent.jsx # Gestión de personajes
-│   │   ├── 📺 EpisodesSection.jsx   # Navegación de episodios
-│   │   ├── 🏛️ LocationsSection.jsx  # Exploración de ubicaciones
-│   │   ├── 🎮 QuizSection.jsx       # Juego de trivia interactivo
-│   │   ├── 📊 StatsSection.jsx      # Visualización de datos
-│   │   └── 🎨 [UI components]        # Cards, filtros, fondos
+│   │   ├── CharacterGrid.jsx     # Controlador principal de la app
+│   │   ├── Header.jsx            # Navegación y pestañas
+│   │   ├── CharactersContent.jsx # Gestión de personajes
+│   │   ├── EpisodesSection.jsx   # Navegación de episodios
+│   │   ├── LocationsSection.jsx  # Exploración de ubicaciones
+│   │   ├── QuizSection.jsx       # Juego de trivia interactivo
+│   │   ├── StatsSection.jsx      # Visualización de datos
+│   │   └── [UI components]        # Cards, filtros, fondos
 │   ├── 📂 hooks/               # Hooks personalizados React
-│   │   ├── 🎭 useCharacters.js     # Gestión de datos de personajes
-│   │   └── 🔍 useFilters.js        # Lógica de filtrado avanzado
+│   │   ├── useCharacters.js     # Gestión de datos de personajes
+│   │   └── useFilters.js        # Lógica de filtrado avanzado
 │   ├── 📄 layout.js            # Layout raíz con fuentes y metadata
 │   ├── 📄 page.js              # Página principal
 │   └── 🎨 globals.css          # Estilos globales y animaciones
@@ -165,24 +165,24 @@ proyecto-ut6-the-simpsons/
 ### **Navegación Principal**
 La aplicación se organiza en pestañas principales:
 
-1. **🎭 Personajes** - Explora el catálogo completo de personajes
-2. **📺 Episodios** - Navega por episodios y temporadas
-3. **🏛️ Ubicaciones** - Descubre los lugares de Springfield
-4. **🎮 Quiz** - Pon a prueba tus conocimientos
+1. **Personajes** - Explora el catálogo completo de personajes
+2. **Episodios** - Navega por episodios y temporadas
+3. **Ubicaciones** - Descubre los lugares de Springfield
+4. **Quiz** - Pon a prueba tus conocimientos
 
 ### **Funcionalidades Clave**
 
-#### **🔍 Búsqueda y Filtrado**
+#### **Búsqueda y Filtrado**
 - Usa la barra de búsqueda para encontrar personajes por nombre
 - Aplica filtros múltiples para refinar resultados
 - Los filtros se combinan para búsquedas precisas
 
-#### **📊 Paginación**
+#### **Paginación**
 - Los resultados se cargan progresivamente
 - Usa el botón "Cargar Más" para ver contenido adicional
 - La carga se optimiza para mejor rendimiento
 
-#### **🎮 Quiz Interactivo**
+#### **Quiz Interactivo**
 - Responde preguntas basadas en citas de personajes
 - Recibe feedback inmediato sobre tus respuestas
 - Tu puntuación se actualiza en tiempo real
@@ -194,10 +194,10 @@ La aplicación se organiza en pestañas principales:
 
 | Comando | Descripción |
 |---------|-------------|
-| `npm run dev` | 🚀 Inicia el servidor de desarrollo |
-| `npm run build` | 🏗️ Compila la aplicación para producción |
-| `npm run start` | 🌐 Inicia un servidor de producción |
-| `npm run lint` | 🔍 Analiza el código con ESLint |
+| `npm run dev` | Inicia el servidor de desarrollo |
+| `npm run build` | Compila la aplicación para producción |
+| `npm run start` | Inicia un servidor de producción |
+| `npm run lint` | Analiza el código con ESLint |
 
 ---
 
@@ -205,11 +205,11 @@ La aplicación se organiza en pestañas principales:
 
 ¡Las contribuciones son bienvenidas! Si quieres mejorar este proyecto:
 
-1. **🍴 Fork** el repositorio
-2. **🌿 Crea** una rama para tu feature (`git checkout - feature/AmazingFeature`)
-3. **💾 Commit** tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. **📤 Push** a la rama (`git push origin feature/AmazingFeature`)
-5. **🔀 Abre** un Pull Request
+1. **Fork** el repositorio
+2. **Crea** una rama para tu feature (`git checkout - feature/AmazingFeature`)
+3. **Commit** tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. **Push** a la rama (`git push origin feature/AmazingFeature`)
+5. **Abre** un Pull Request
 
 ---
 
@@ -246,7 +246,7 @@ Este proyecto ha sido desarrollado con por:
 
 > 🎓 **Proyecto Educativo** - Este es un proyecto personal desarrollado con fines educativos. 
 
-✅ **Libre uso** - Siéntete libre de clonarlo, experimentar y aprender de él.
+**Libre uso** - Siéntete libre de clonarlo, experimentar y aprender de él.
 
 ---
 
@@ -259,5 +259,5 @@ Este proyecto ha sido desarrollado con por:
 ---
 
 <p align="center">
-  <sub>Hecho con ❤️ y ☕️ para fans de Los Simpsons</sub>
+  <sub>Hecho con cariño para fans de Los Simpsons</sub>
 </p>
